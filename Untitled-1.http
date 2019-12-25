@@ -1,0 +1,3 @@
+GET https://api.p2pquake.net/v1/human-readable HTTP/1.1
+
+# GET http://weather.livedoor.com/forecast/webservice/json/v1?city=140010 HTTP/1.1
