@@ -1,5 +1,6 @@
 import urllib.request
 import json
+import re
 
 def get_api():
     url = 'https://api.p2pquake.net/v1/human-readable'
@@ -29,14 +30,23 @@ def json_perser(body):
             # print("{}".format(earthquake))
             earthquake_Scale = earthquake["maxScale"]
             try:
+                maxScale_formatCheck(int(earthquake_Scale))
                 if(earthquake_Scale >= 45):
                     print("震度5弱以上")
                     print("{}".format(earthquake["hypocenter"]))
-                else:
+                elif(earthquake_Scale <= 40):
                     print("震度4以下")
                     print("場所：{}".format(earthquake["hypocenter"]["name"]))
             except:
+                print("except...")
+                print("{}".format(earthquake_Scale))
                 pass
+
+def maxScale_formatCheck(int):
+    if re.match(r"0|[1234567][0]|[45][5]", int):
+        print("Match!")
+    else:
+        raise ValueError("maxScaleの値が不正です")
 
 if __name__=='__main__':
     json_perser(get_api())
