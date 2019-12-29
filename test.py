@@ -36,10 +36,11 @@ def json_perser(body):
                 elif(earthquake_Scale <= 40):
                     print("震度4以下")
                     print("場所：{}".format(earthquake["hypocenter"]["name"]))
+                    print("地方名:{}".format(serchChihou(earthquake["hypocenter"]["name"])))
+                    print()
             except ValueError as e:
-                print("except...")
-                print("{}".format(earthquake_Scale))
-                print("Error:{}".format(e))
+                print("Error：{}".format(e))
+                print()
                 pass
             except:
                 print("Unexpected error:", sys.exc_info()[0])
@@ -52,6 +53,45 @@ def maxScale_formatCheck(maxScale):
     else:
         # print(maxScale)
         raise ValueError("maxScaleの値が不正です")
+
+def serchChihou(name):
+    pattern = r'^(.{1,3}[府|都|道|県])'
+    repatter = re.compile(pattern)
+    result = repatter.match(name)
+    if result:
+        print('都道府県名:{}'.format(result.group()))
+        if (result.group() == '北海道'):
+            chihou = '北海道地方'
+        elif (result.group() == '青森県' or result.group() == '岩手県' or result.group() == '秋田県' or result.group() == '宮城県' or result.group() == '山形県' or result.group() == '福島県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '東北地方'
+        elif (result.group() == '茨城県' or result.group() == '栃木県' or result.group() == '群馬県' or result.group() == '埼玉県' or result.group() == '千葉県' or result.group() == '東京都' or result.group() == '神奈川県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '東北地方'
+        elif (result.group() == '山梨県' or result.group() == '長野県' or result.group() == '新潟県' or result.group() == '富山県' or result.group() == '石川県' or result.group() == '福井県' or result.group() == '静岡県' or result.group() == '愛知県' or result.group() == '岐阜県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '中部地方'
+        elif (result.group() == '三重県' or result.group() == '滋賀県' or result.group() == '京都府' or result.group() == '大阪府' or result.group() == '兵庫県' or result.group() == '奈良県' or result.group() == '和歌山県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '近畿地方'
+        elif (result.group() == '鳥取県' or result.group() == '島根県' or result.group() == '岡山県' or result.group() == '広島県' or result.group() == '山口県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '中国地方'
+        elif (result.group() == '香川県' or result.group() == '愛媛県' or result.group() == '徳島県' or result.group() == '高知県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '四国地方'
+        elif (result.group() == '福岡県' or result.group() == '佐賀県' or result.group() == '長崎県' or result.group() == '熊本県' or result.group() == '大分県' or result.group() == '宮崎県' or result.group() == '鹿児島県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '九州地方'
+        elif (result.group() == '沖縄県'):
+            # Todo：コーディングのやり方がよくない(ハードコーディング)になっているので要修正
+            chihou = '沖縄地方'
+        else:
+            raise ValueError('場所の値が不正です')
+    else:
+        chihou= "おそらく都道府県名でない場所で地震があった"
+
+    return chihou
 
 if __name__=='__main__':
     json_perser(get_api())
