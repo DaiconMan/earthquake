@@ -20,10 +20,8 @@ def get_api():
         return 0
 
 def json_perser(body):
-    #ココ重要！！
-    # インデントありで表示
+    # HTTP Responseをインデントありで表示
     # print("{}".format(json.dumps(body, indent=4, ensure_ascii=False)))
-    # 要素を取得する 
 
     for jsn_val in body:
         if(jsn_val['code'] == 551):
@@ -52,7 +50,7 @@ def maxScale_formatCheck(maxScale):
         # print("Match!")
         pass
     else:
-        print(maxScale)
+        # print(maxScale)
         raise ValueError("maxScaleの値が不正です")
 
 if __name__=='__main__':
