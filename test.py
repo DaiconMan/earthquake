@@ -35,7 +35,7 @@ def json_perser(body):
                     print("{}".format(earthquake["hypocenter"]))
                 elif(earthquake_Scale <= 40):
                     print("震度4以下")
-                    print("場所：{}".format(earthquake["hypocenter"]["name"]))
+                    print("場所：{}, 緯度:{}, 経度:{}".format(earthquake["hypocenter"]["name"], earthquake["hypocenter"]["latitude"], earthquake["hypocenter"]["longitude"]))
             except ValueError as e:
                 print("except...")
                 print("{}".format(earthquake_Scale))
